@@ -1,0 +1,13 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello CityController!{% endblock %}
+
+{% block body %}
+    <div class="example-wrapper">
+        <a href="{{ path('update_city', {id: city.id})}}">Modifier</a>
+        <a href="{{ path('delete_city', {id: city.id})}}">Supprimer</a>
+        <h1>Welcome to {{ city.name }} ! ✅</h1>
+        <p>{{ city.description }}</p>
+        <a href="{{ city.link }}">Site officiel de la ville</a>
+    </div>
+{% endblock %}
