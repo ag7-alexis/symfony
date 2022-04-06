@@ -8,6 +8,7 @@
         <a href="{{ path('delete_city', {id: city.id})}}">Supprimer</a>
         <h1>Welcome to {{ city.name }} ! ✅</h1>
         <p>{{ city.description }}</p>
+        <p>{{ city.name }} fait partie du pays : {{ city.country.getName() }}</p>
         <a href="{{ city.link }}">Site officiel de la ville</a>
     </div>
 {% endblock %}

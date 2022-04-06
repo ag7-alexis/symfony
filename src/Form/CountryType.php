@@ -2,24 +2,30 @@
 
 namespace App\Form;
 
-use App\Entity\City;
 use App\Entity\Country;
-use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Validator\Constraints\File;
 
-class CityType extends AbstractType
+class CountryType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
             ->add('name')
             ->add('description')
-            ->add('link')
-            ->add('country', EntityType::class, [
-                'class' => Country::class,
+            ->add('flag', FileType::class, [
+                'label' => 'Drapeau (png,jpeg)',
+                'mapped' => false,
+                'required' => false,
+                'constraints' => [
+                    new File([
+                        'maxSize' => '1024k',
+                    ])
+                ],
             ])
             ->add('submit', SubmitType::class, [
                 'label' => 'Create'
@@ -30,7 +36,7 @@ class CityType extends AbstractType
     public function configureOptions(OptionsResolver $resolver): void
     {
         $resolver->setDefaults([
-            'data_class' => City::class,
+            'data_class' => Country::class,
         ]);
     }
 }

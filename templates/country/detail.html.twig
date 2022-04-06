@@ -1,0 +1,13 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello CountryController!{% endblock %}
+
+{% block body %}
+    <div class="example-wrapper">
+        <a href="{{ path('update_country', {id: country.id})}}">Modifier</a>
+        <a href="{{ path('delete_country', {id: country.id})}}">Supprimer</a>
+        <h1>Welcome to {{ country.name }} ! ✅</h1>
+        <p>{{ country.description }}</p>
+        <img src="{{ country.flag|pathFileFlags}}">
+    </div>
+{% endblock %}

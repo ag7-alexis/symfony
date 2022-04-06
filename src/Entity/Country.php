@@ -2,34 +2,46 @@
 
 namespace App\Entity;
 
-use App\Repository\CityRepository;
+use App\Repository\CountryRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
-#[ORM\Entity(repositoryClass: CityRepository::class)]
-class City
+#[ORM\Entity(repositoryClass: CountryRepository::class)]
+class Country
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column(type: 'integer')]
     private $id;
 
-    #[ORM\Column(type: 'string', length: 255)]
+    #[ORM\Column(type: 'string', length: 255, nullable: true)]
     private $name;
 
     #[ORM\Column(type: 'text', nullable: true)]
     private $description;
 
     #[ORM\Column(type: 'string', length: 255, nullable: true)]
-    private $link;
+    private $flag;
 
-    #[ORM\ManyToOne(targetEntity: Country::class, inversedBy: 'cities')]
-    private $country;
+    #[ORM\OneToMany(mappedBy: 'country', targetEntity: City::class)]
+    private $cities;
 
     #[ORM\Column(type: 'datetime_immutable', nullable: true)]
     private $createdAt;
 
     #[ORM\Column(type: 'datetime_immutable', nullable: true)]
     private $updatedAt;
+
+    public function __construct()
+    {
+        $this->cities = new ArrayCollection();
+    }
+
+    public function __toString()
+    {
+        return $this->name;
+    }
 
     public function getId(): ?int
     {
@@ -41,7 +53,7 @@ class City
         return $this->name;
     }
 
-    public function setName(string $name): self
+    public function setName(?string $name): self
     {
         $this->name = $name;
 
@@ -60,26 +72,44 @@ class City
         return $this;
     }
 
-    public function getLink(): ?string
+    public function getFlag(): ?string
     {
-        return $this->link;
+        return $this->flag;
     }
 
-    public function setLink(?string $link): self
+    public function setFlag(?string $flag): self
     {
-        $this->link = $link;
+        $this->flag = $flag;
 
         return $this;
     }
 
-    public function getCountry(): ?Country
+    /**
+     * @return Collection<int, City>
+     */
+    public function getCities(): Collection
     {
-        return $this->country;
+        return $this->cities;
     }
 
-    public function setCountry(?Country $country): self
+    public function addCity(City $city): self
     {
-        $this->country = $country;
+        if (!$this->cities->contains($city)) {
+            $this->cities[] = $city;
+            $city->setCountry($this);
+        }
+
+        return $this;
+    }
+
+    public function removeCity(City $city): self
+    {
+        if ($this->cities->removeElement($city)) {
+            // set the owning side to null (unless already changed)
+            if ($city->getCountry() === $this) {
+                $city->setCountry(null);
+            }
+        }
 
         return $this;
     }

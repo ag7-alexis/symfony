@@ -32,6 +32,7 @@ class CityController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            $city->setCreatedAt(new \DateTimeImmutable('Europe/Paris'));
             $entityManager->persist($city);
             $entityManager->flush();
 
@@ -51,6 +52,7 @@ class CityController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            $city->setUpdatedAt(new \DateTimeImmutable('Europe/Paris'));
             $entityManager->persist($city);
             $entityManager->flush();
 
