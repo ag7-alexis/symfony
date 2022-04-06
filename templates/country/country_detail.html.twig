@@ -1,0 +1,11 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+<a href="{{ path('edit_country', {"id": country.id}) }}">Modifier</a>
+<a href="{{ path('delete_country', {"id": country.id}) }}">Supprimer</a>
+<p>page de {{country.name}} {{country.id}}</p>
+<h2>Description</h2>
+<p>{{country.description}}</p>
+<img src="{{country.flag}}" alt="{{country.flag}}">
+        
+{% endblock %}

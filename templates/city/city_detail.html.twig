@@ -1,0 +1,15 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+<a href="{{ path('edit_city', {"id": city.id}) }}">Modifier</a>
+<a href="{{ path('delete_city', {"id": city.id}) }}">Supprimer</a>
+<p>page de {{city.name}} {{city.id}}</p>
+<h2>Description</h2>
+<p>{{city.description|raw}}</p>
+<h2>Site</h2>
+<p>{{city.site}}</p>
+<p>{{city.country}}</p>
+
+
+
+{% endblock %}
