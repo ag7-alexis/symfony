@@ -9,6 +9,7 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use FOS\CKEditorBundle\Form\Type\CKEditorType;
 
 class CityType extends AbstractType
 {
@@ -16,7 +17,7 @@ class CityType extends AbstractType
     {
         $builder
             ->add('name')
-            ->add('description')
+            ->add('description', CKEditorType::class)
             ->add('link')
             ->add('country', EntityType::class, [
                 'class' => Country::class,

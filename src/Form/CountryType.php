@@ -9,6 +9,7 @@ use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Validator\Constraints\File;
+use FOS\CKEditorBundle\Form\Type\CKEditorType;
 
 class CountryType extends AbstractType
 {
@@ -16,7 +17,7 @@ class CountryType extends AbstractType
     {
         $builder
             ->add('name')
-            ->add('description')
+            ->add('description', CKEditorType::class)
             ->add('flag', FileType::class, [
                 'label' => 'Drapeau (png,jpeg)',
                 'mapped' => false,
